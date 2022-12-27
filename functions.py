@@ -160,6 +160,7 @@ class Thread:
 
 class Story:
     def __init__(self):
+        self.board_url = BOARD_URL
         self.title = ""
         self.authors = []
         self.characters = []
@@ -177,7 +178,6 @@ class Story:
         return f"|{self.title}|{','.join(self.authors)}|{','.join(self.characters)}|\n\n{threads}"
 
     def get_story(self) -> str:
-        self.board_url = BOARD_URL
         self.page = requests.get(self.board_url)
         self.soup = BeautifulSoup(self.page.content, "html.parser")
         self.title = self.soup.find("title").text.split("|")[0].strip()
