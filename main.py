@@ -1,11 +1,11 @@
+import json
 
+# from settings import Y
+from functions import Story
 
-from settings import Y
-from functions import X
 
 def main():
-    
-    pass
+    story2 = Story.load_from_json('data/story.json')
 
 if __name__ == "__main__":
     main()

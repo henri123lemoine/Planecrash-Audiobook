@@ -130,9 +130,9 @@ class Thread:
         page = requests.get(self.url)
         self.soup = BeautifulSoup(page.content, "html.parser")
         self.title = self.soup.find("span", {"id": "post-title"}).text
+        self.blocks = [Block().get_block(b) for b in self.soup.find_all("div", {"class": ["post-container post-post", "post-container post-reply"]})]
         self.authors = list(set([t.text.replace("\n", "") for t in self.soup.find_all("div", {"class": "post-author"})]))
         self.characters = list(set([t.text for t in self.soup.find_all("div", {"class": "post-character"})]))
-        self.blocks = [Block().get_block(b) for b in self.soup.find_all("div", {"class": ["post-container post-post", "post-container post-reply"]})]
         return self
 
     def to_json(self) -> dict:
@@ -146,15 +146,6 @@ class Thread:
 
     def get_word_count(self) -> int:
         return sum([block.get_word_count() for block in self.blocks])
-    
-    def get_character_word_count(self) -> int:
-        character_word_count = {}
-        for character in self.characters:
-            character_word_count[character] = 0
-        for block in self.blocks:
-            if block.content_text and block.character:
-                character_word_count[block.character] += block.get_word_count()
-        return character_word_count        
     
     @staticmethod
     def load_from_json(d):
@@ -175,7 +166,7 @@ class Story:
         self.threads = []
 
     def __str__(self):
-        story = f"Story: {self.title}\nAuthors: {', '.join(self.get_all_authors())}\nCharacters: {', '.join(self.get_all_characters())}\n\n"
+        story = f"Story: {self.title}\nAuthors: {', '.join(self.authors)}\nCharacters: {', '.join(self.characters)}\n\n"
         for thread in self.threads:
             story += f"{thread.title}\n{thread.url}\nWord count: {thread.get_word_count()}\n\n"
         story += f"Total word count: {sum([thread.get_word_count() for thread in self.threads])}"
@@ -183,7 +174,7 @@ class Story:
     
     def __repr__(self):
         threads = '\n'.join(repr(thread) for thread in self.threads)
-        return f"|{self.title}|{','.join(self.get_all_authors())}|{','.join(self.get_all_characters())}|\n\n{threads}"
+        return f"|{self.title}|{','.join(self.authors)}|{','.join(self.characters)}|\n\n{threads}"
 
     def get_story(self) -> str:
         self.board_url = BOARD_URL
@@ -213,16 +204,7 @@ class Story:
         return all_blocks
     
     def get_word_count(self) -> int:
-        return sum([thread.word_count for thread in self.threads])
-    
-    def get_character_word_count(self) -> dict:
-        character_word_count = {}
-        for character in self.characters:
-            character_word_count[character] = 0
-        for thread in self.threads:
-            for character in thread.characters:
-                character_word_count[character] += thread.character_word_count[character]
-        return character_word_count
+        return sum([thread.get_word_count() for thread in self.threads])
     
     def create_txt(self, path: str):
         with open(path, "w", encoding="utf-8") as f:
@@ -231,11 +213,6 @@ class Story:
     def save(self, path: str):
         with open(path, 'wb') as f:
             pickle.dump(self, f)
-
-    @classmethod
-    def load(cls, path: str):
-        with open(path, 'rb') as f:
-            return pickle.load(f)
 
     @staticmethod
     def load_from_json(path: str):
