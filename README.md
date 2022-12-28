@@ -1,17 +1,18 @@
 # Planecrash_Audio
-Each thread is made of blocks. Each block contains a few pieces of information:
 
-Character "post-character" (optional)
-Screenname "post-screenname" (optional)
-Author "post-author" (always present)
-Icon "post-icon" (optional)
-Content "post-content" (optional)
-Each block is contained in a div with class "post-container post-post" or "post-container post-reply"
+The story information is stored in the Story class.
+It contains a title string, an authors list, a characters list, a board url string, and threads (found at the board url).
 
-The thread itself contains:
+The threads information is stored in the Thread class.
+It contains a title string, an authors list, a characters list, a thread url string, and blocks (found at the thread url).
 
-Title "post-title"
-Authors "post-author"'s
-Characters "post-character"'s (optional)
-Blocks "post-container post-post"'s and "post-container post-reply"'s
-The thread is contained in a div with class "content"
+The blocks information is stored in the Block class.
+It contains a character string, an screenname string, an author string, an icon url string, a block url string, a content string (containing html describing the block), and a content text string (containing only the story-text part of the html).
+
+#TODO
+- make things cleaner (rename classes and functions to make it more readable, make the code more pythonic, and add more comments when deemed necessary)
+- Blocks should contain a list 'voices' of voice-text tuples, describing what voice should say what and in what order.
+- Write code to make easier the process of generating an audio episode from the story. This may include:
+    1. automatically separating threads in 30-minutes-length list of blocks.
+    2. function to generate audiobook from list of blocks (including intro and outro).
+ 
