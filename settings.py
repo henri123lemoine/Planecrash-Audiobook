@@ -1,6 +1,7 @@
 BOARD_URL = "https://glowfic.com/board_sections/703"
 
 VOICE_DICT = {
+    "Narrator": "TBD",
     "Lady Eul\u00e0lia Avaricia de Seguer": "TBD",
     "Minor Character": "TBD",
     "Character 1": "TBD",
