@@ -68,44 +68,29 @@ class Voice:
         self.character = character
         self.voice_name = VOICE_DICT.get(character)
         self.content = content
-        self.effects = []
-        self.voices = [(self.character, self.content, self.effects)]
+        self.len_content = len(self.content)
+        self.voices = []
 
-    def split_voice(self) -> List[Tuple[str, str, str]]:
+        # tag order list
+        self.tag_order = []
+        # text portions list
+        self.text_portions = []
         """
-        Splits the content into a list of tuples containing the character and the text they say.
-        
-        Example:
-        character = "Narrator"
-        content = <div class=\"post-content\"><p>\u00a0</p>\n<p>\u00a0</p>\n<p>Hello, reader, and welcome to your first glowfic!\u00a0 If this is not your first glowfic, you already know how to move directly on to the main story from here, by clicking \"<a href=\"/posts/4582\">Next Post</a>\" above.\u00a0 You can also go there now if you'd rather just dive straight in, and work out the UI on your own.</p>\n<p>\u00a0</p>\n<p><strong>Glowfic</strong> is a special case of\u00a0<strong>roleplay fiction</strong>, in which the authors take turns describing events inside the story.</p>\n<p>This is the\u00a0<em>top post</em> or first <em>tag </em>of this <em>thread</em>.</p>\n<p>Immediately below it is the next of many other tags in the thread.\u00a0 When you're done reading this top post, just continue to the next tag!\u00a0 The tags below aren't reader comments, or anything different like that; they're just more of the same document.</p>\n<p>Keep reading downward, without clicking anything yet...</p></div>
-        Output:
-        [
-            ('Narrator', '', ''),
-            ('Narrator', '', ''),
-            ('Narrator', 'Hello, reader, and welcome to your first glowfic! If this is not your first glowfic, you already know how to move directly on to the main story from here, by clicking', '')
-            ('Narrator', 'Next Post', 'ITALIC'),
-            ('Narrator', 'above. You can also go there now if you'd rather just dive straight in, and work out the UI on your own.', ''),
-            ('Narrator', '', ''),
-            ('Narrator', '', ''),
-            ('Narrator', '', ''),
-            ('Narrator', 'Glowfic', 'BOLD'),
-            ('Narrator', 'is a special case of', ''),
-            ('Narrator', 'roleplay fiction', 'BOLD'),
-            ('Narrator', 'in which the authors take turns describing events inside the story.', '')
-            ('Narrator', '', ''),
-            ('Narrator', 'This is the', ''),
-            ('Narrator', 'top post', 'ITALIC'),
-            ('Narrator', 'or first', ''),
-            ('Narrator', 'tag', 'ITALIC'),
-            ('Narrator', 'of this', ''),
-            ('Narrator', 'thread', 'ITALIC'),
-            ('Narrator', '', ''),
-            ('Narrator', 'Immediately below it is the next of many other tags in the thread. When you're done reading this top post, just continue to the next tag! The tags below aren't reader comments, or anything different like that; they're just more of the same document.', ''),
-            ('Narrator', '', ''),
-            ('Narrator', 'Keep reading downward, without clicking anything yet...', '')
-        ]
+        ex:
+        content: "blabla1<tag1>blabla2<tag2>blabla3</tag2>blabla4</tag1>blabla5"
+        tag_order: ["tag1", "tag2", "/tag2", "/tag1"]
+        text_portions: ["blabla1", "blabla2", "blabla3", "blabla4", "blabla5"]
         """
-        pass
+        def get_tag_order(self):
+            # get the tag order list
+            # get the text portions list
+            for tag in self.html_block.find_all(True):
+                self.tag_order.append(tag.name)
+                self.text_portions.append(tag.text)
+            # remove the last tag
+            self.tag_order.pop()
+            # remove the first text portion
+            self.text_portions.pop(0)
         
 
 class Block:
@@ -143,7 +128,7 @@ Voices:
         self.html_block.find("a", {"rel": "alternate"})["href"]
         self.content = str(content) if (content:=self.html_block.find("div", {"class": "post-content"})) else None
         self.content_text = content.text if (content:=self.html_block.find("div", {"class": "post-content"})) else None
-        self.voices = Voice(self.character, self.content_text).split_voice()
+        self.voices = []#Voice(self.character, self.content_text).split_voice()
         return self
 
     def to_json(self) -> dict:
@@ -292,3 +277,5 @@ Threads:
         story.characters = d["characters"]
         story.authors = d["authors"]
         return story
+    
+
