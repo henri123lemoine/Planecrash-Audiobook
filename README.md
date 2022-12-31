@@ -20,7 +20,7 @@ It contains a character string, an screenname string, an author string, an icon 
 - Determine which characters have what voice, and what consistent accents to give each region from Golarion.
 
 - Process tags:
-    - <div class="post-content"></div>
+    "<div class="post-content"></div>"
     remove
 
     - <a href=""></a>
