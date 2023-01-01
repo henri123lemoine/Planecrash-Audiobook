@@ -53,9 +53,9 @@ It contains a character string, an screenname string, an author string, an icon 
 	    <tbody>
 	      <tr>
 	        <td style="border: 0;">text</td>
-          </tr>
-        </tbody>
-      </table>
+        </tr>
+      </tbody>
+    </table>
     Reformulate it manually.
     All examples from: [https://www.glowfic.com/posts/4582?page=26]
     
@@ -63,7 +63,7 @@ It contains a character string, an screenname string, an author string, an icon 
     See todo_helper.txt for all <big> tags. This only includes Otolmens, Dispater and Curse of Laughter talking, plus a single Pilar sound effect.
 
     <small>msg</small>
-    Whispering maybe? Often accompagnied with parentheses. See todo_helper.txt, though it is far from complete.
+    Whispering maybe? Often accompagnied with parentheses. See todo_helper.txt.
 
     <hr/>
     This can denote a scene change, or just a page-turning sound à la HPMORPodcast, or just continuation. Go through them manually. See todo_helper.txt for all examples.

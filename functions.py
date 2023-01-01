@@ -1,9 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import re
+import os
 from typing import List, Tuple, Dict, Union, Optional
 
 from settings import BOARD_URL, VOICE_DICT
+from helper_functions import make_title, process_voice_content
 
 """
 The format of the Glowfic board is as follows:
@@ -62,73 +65,94 @@ It contains a character string, an screenname string, an author string, an icon 
 2. Save the Story to a pretty json file
 3. Save the Story to a pickle file
 """
-
 class Voice:
-    def __init__(self, character: str, content: str):
-        self.character = character
-        self.voice_name = VOICE_DICT.get(character)
-        self.content = content
-        self.len_content = len(self.content)
+    def __init__(self) -> None:
+        self.voice_name = ""
+        self.content = ""
+        self.len_content = 0
+        self.tags, self.text_portions = [], []
         self.voices = []
+    
+    def __str__(self) -> str:
+        voices = "\n".join([f"{voice[0]}: {voice[1]}" for voice in self.voices])
+        voice = f"Character voice: {self.voice_name}\nVoices:\n{voices}"
+        return voice
 
-        # tag order list
-        self.tag_order = []
-        # text portions list
-        self.text_portions = []
-        """
-        ex:
-        content: "blabla1<tag1>blabla2<tag2>blabla3</tag2>blabla4</tag1>blabla5"
-        tag_order: ["tag1", "tag2", "/tag2", "/tag1"]
-        text_portions: ["blabla1", "blabla2", "blabla3", "blabla4", "blabla5"]
-        """
-        def get_tag_order(self):
-            # get the tag order list
-            # get the text portions list
-            for tag in self.html_block.find_all(True):
-                self.tag_order.append(tag.name)
-                self.text_portions.append(tag.text)
-            # remove the last tag
-            self.tag_order.pop()
-            # remove the first text portion
-            self.text_portions.pop(0)
+    def extract(self, character: str, content: str) -> "Voice":
+        self.voice_name = VOICE_DICT.get(character)
+        self.content = process_voice_content(content)
+        self.len_content = len(self.content)
+        self.tags, self.text_portions = self.extract_tags_and_text()
+        self.voices = self.extract_voices()
+        return self
+    
+    def to_json(self) -> dict:
+        return {
+            "": 0
+        }
+
+    def extract_tags_and_text(self) -> Tuple[List[str], List[str]]:
+        tags = []
+        text_portions = []
         
+        # Find all tags in the input string
+        tag_indices = []
+        for tag in re.finditer(r'<[^<>]*>', self.content):
+            tag_indices.append((tag.start(), tag.end()))
+            tags.append(tag.group()[1:-1])
+        
+        # Extract the text portions between the tags
+        start = 0
+        for start_index, end_index in tag_indices:
+            text_portions.append(self.content[start:start_index])
+            start = end_index
+        text_portions.append(self.content[start:])
+        
+        text_portions = [text.strip() for text in text_portions][1:]
+        return tags, text_portions
+
+    def extract_voices(self):# -> List[List[str, List[str]]]:
+        voices = []
+        tags_stack = []
+        for i in range(len(self.tags)):
+            tag = self.tags[i]
+            if tag[0] == '/':
+                tags_stack.pop()
+            else:
+                tags_stack.append(tag)
+            voices.append([self.text_portions[i], tags_stack.copy()])
+
+        voices = [voice for voice in voices if voice != ['', []]]
+        return voices
+
+
+
+
 
 class Block:
     def __init__(self):
-        self.html_block = BeautifulSoup("", "html.parser")
         self.character = ""
         self.screenname = ""
         self.author = ""
         self.icon_url = ""
-        self.block_url = ""
+        self.url = ""
         self.content = ""
-        self.content_text = ""    
         self.voices = []    
 
     def __str__(self) -> str:
         voices = "\n\t".join([f"{voice[0]}: {voice[1]}" for voice in self.voices])
-        block = f"""Character: {self.character}
-Screenname: {self.screenname}
-Author: {self.author}
-Icon URL: {self.icon_url}
-Block URL: {self.block_url}
-Content: {self.content_text}
-Voices:
-    {voices}"""
-        return block
+        return f"Character: {self.character}\nScreenname: {self.screenname}\nAuthor: {self.author}\nIcon URL: {self.icon_url}\nPermalink: {self.url}\nContent: {self.content}\nVoices:\n{voices}"
 
-    def extract(self, html_block: BeautifulSoup) -> "Block":
+    def extract(self, html: BeautifulSoup) -> "Block":
         # Extract the block information from the html block
-        self.html_block = html_block
-        self.character = character.text if (character:=self.html_block.find("div", {"class": "post-character"})) else None
-        self.screenname = screenname.text if (screenname:=self.html_block.find("div", {"class": "post-screenname"})) else None
-        self.author = self.html_block.find("div", {"class": "post-author"}).text.replace("\n", "")
-        self.icon_url = icon.find("img")["src"] if (icon:=self.html_block.find("div", {"class": "post-icon"})) else None
-        self.block_url = 'https://www.glowfic.com' + self.html_block.find("a", {"rel": "alternate"})["href"]
-        self.html_block.find("a", {"rel": "alternate"})["href"]
-        self.content = str(content) if (content:=self.html_block.find("div", {"class": "post-content"})) else None
-        self.content_text = content.text if (content:=self.html_block.find("div", {"class": "post-content"})) else None
-        self.voices = []#Voice(self.character, self.content_text).split_voice()
+        self.character = character.text if (character:=html.find("div", {"class": "post-character"})) else None
+        self.screenname = screenname.text if (screenname:=html.find("div", {"class": "post-screenname"})) else None
+        self.author = html.find("div", {"class": "post-author"}).text.replace("\n", "")
+        self.icon_url = icon.find("img")["src"] if (icon:=html.find("div", {"class": "post-icon"})) else None
+        self.url = 'https://www.glowfic.com' + html.find("a", {"rel": "alternate"})["href"]
+        html.find("a", {"rel": "alternate"})["href"]
+        self.content = str(content) if (content:=html.find("div", {"class": "post-content"})) else None
+        self.voices = []
         return self
 
     def to_json(self) -> dict:
@@ -137,24 +161,20 @@ Voices:
             "screenname": self.screenname,
             "author": self.author,
             "icon_url": self.icon_url,
-            "block_url": self.block_url,
+            "url": self.url,
             "content": self.content,
-            "content_text": self.content_text,
-            "voices": [[voice[0], voice[1]] for voice in self.voices],
-            "html_block": str(self.html_block)
+            "voices": [[voice[0], voice[1]] for voice in self.voices]
         }
     
     @staticmethod
     def load_from_json(d: dict) -> "Block":
         block = Block()
-        block.html_block = BeautifulSoup(d["html_block"], "html.parser")
         block.character = d["character"]
         block.screenname = d["screenname"]
         block.author = d["author"]
         block.icon_url = d["icon_url"]
-        block.block_url = d["block_url"]
+        block.url = d["url"]
         block.content = d["content"]
-        block.content_text = d["content_text"]
         block.voices = [(voice[0], voice[1]) for voice in d["voices"]]
         return block
     
@@ -165,28 +185,22 @@ class Thread:
         self.title = ""
         self.authors = []
         self.characters = []
-        self.thread_url = ""
+        self.url = ""
         self.blocks = []
     
     def __str__(self) -> str:
         blocks = "\n".join([str(block) for block in self.blocks])
-
-        thread = f"""Title: {self.title}
-Authors: {self.authors}
-Characters: {self.characters}
-Thread URL: {self.thread_url}
-Blocks:
-{blocks}"""
-        return thread
+        return f"Title: {self.title}\nAuthors: {self.authors}\nCharacters: {self.characters}\nURL: {self.url}\nBlocks:\n{blocks}"
     
-    def extract(self, thread_url: str) -> "Thread":
+    def extract(self, url: str) -> "Thread":
         # Extract the thread information from the Thread URL
-        self.thread_url = thread_url
-        self.html_thread = BeautifulSoup(requests.get(self.thread_url).content, "html.parser")
-        self.title = self.html_thread.find("span", {"id": "post-title"}).text
-        self.authors = list(set([t.text.replace("\n", "") for t in self.soup.find_all("div", {"class": "post-author"})]))
-        self.characters = list(set([t.text for t in self.html_thread.find_all("div", {"class": "post-character"})]))
-        self.blocks = [Block().extract(b) for b in self.html_thread.find_all("div", {"class": ["post-container post-post", "post-container post-reply"]})]
+        self.url = url
+        html = BeautifulSoup(requests.get(self.url).content, "html.parser")
+        self.title = html.find("span", {"id": "post-title"}).text
+
+        self.blocks = [Block().extract(b) for b in html.find_all("div", {"class": ["post-container post-post", "post-container post-reply"]})]
+        self.characters = list(set([block.character for block in self.blocks]))
+        self.authors = list(set([block.author for block in self.blocks]))
         return self
     
     def to_json(self) -> dict:
@@ -195,22 +209,27 @@ Blocks:
             "title": self.title,
             "authors": self.authors,
             "characters": self.characters,
-            "thread_url": self.thread_url,
+            "url": self.url,
             "blocks": [block.to_json() for block in self.blocks],
-            "html_thread": str(self.html_thread)
         }
+
+    def save_json(self, path: str, indent: int=4) -> None:
+        with open(f"{path}/{make_title(self.title)}.json", "w") as json_file:
+            json.dump(self.to_json(), json_file, indent=indent)
+
 
     @staticmethod
     def load_from_json(d: dict) -> "Thread":
         thread = Thread()
-        thread.thread_url = d["thread_url"]
-        thread.html_thread = BeautifulSoup(d["html_thread"], "html.parser")
         thread.title = d["title"]
         thread.authors = d["authors"]
         thread.characters = d["characters"]
-        thread.thread_url = d["thread_url"]
+        thread.url = d["url"]
         thread.blocks = [Block.load_from_json(block) for block in d["blocks"]]
         return thread
+
+
+
 
 
 class Story:
@@ -219,27 +238,21 @@ class Story:
         self.title = ""
         self.authors = []
         self.characters = []
-        self.board_url = BOARD_URL
+        self.url = BOARD_URL
         self.threads = []
         
     def __str__(self):
         threads = "\n".join([str(thread) for thread in self.threads])
-
-        story = f"""Title: {self.title}
-Authors: {self.authors}
-Characters: {self.characters}
-Board URL: {self.board_url}
-Threads:
-{threads}"""
-        return story
+        return f"Title: {self.title}\nAuthors: {self.authors}\nCharacters: {self.characters}\nURL: {self.url}\nThreads:\n{threads}"
         
-    def extract(self, board_url: str) -> "Story":
+    def extract(self, url: str) -> "Story":
         # Extract the story information from the Board URL
-        self.board_url = board_url
-        self.board_html = BeautifulSoup(requests.get(self.board_url).content, "html.parser")
-        self.title = self.board_html.find("title").text.split("|")[0].strip()
-        tags = self.board_html.find_all("td", {"class": ["post-subject vtop odd", "post-subject vtop even"]})
-        threads_links = ["https://glowfic.com" + t.find("a")["href"] + "?view=flat" for t in tags]#[6:7]
+        self.url = url
+        html = BeautifulSoup(requests.get(self.url).content, "html.parser")
+        self.title = html.find("title").text.split("|")[0].strip()
+        tags = html.find_all("td", {"class": ["post-subject vtop odd", "post-subject vtop even"]})
+        threads_links = ["https://glowfic.com" + t.find("a")["href"] + "?view=flat" for t in tags]#[:1]#[6:7]
+
         self.threads = [Thread().extract(thread_link) for thread_link in threads_links]
         self.characters = list(set([character for thread in self.threads for character in thread.characters]))
         self.authors = list(set([author for thread in self.threads for author in thread.authors]))
@@ -250,32 +263,36 @@ Threads:
             "title": self.title,
             "authors": self.authors,
             "characters": self.characters,
-            "board_url": self.board_url,
-            "threads": [thread.to_json() for thread in self.threads],
-            "board_html": str(self.board_html)
+            "url": self.url
         }
 
-    def save_json(self, path: str, indent: int = 4) -> None:
-        with open(path, "w") as json_file:
+    def save_json(self, path: str, indent: int=4) -> None:
+        with open(f"{path}/story.json", "w") as json_file:
             json.dump(self.to_json(), json_file, indent=indent)
+        
+        for thread in self.threads:
+            thread.save_json(path, indent)
 
+    @staticmethod
+    def load_from_json(path: str):
+        with open(f"{path}/story.json", "r") as json_file:
+            story_d = json.load(json_file)
+        thread_ds = []
+        for file in os.listdir(path):
+            if file.endswith(".json") and file != "story.json":
+                with open(f"{path}/{file}", "r") as json_file:
+                    thread_ds.append(json.load(json_file))
+        
+        story = Story()
+        story.url = story_d["url"]
+        story.title = story_d["title"]
+        story.authors = story_d["authors"]
+        story.characters = story_d["characters"]
+        story.threads = [Thread.load_from_json(thread_d) for thread_d in thread_ds]
+        return story
+    
     def get_all_blocks(self) -> list:
         return [block for thread in self.threads for block in thread.blocks]
     
     def get_word_count(self) -> int:
         return sum([len(block.content_text.split()) for block in self.get_all_blocks()])
-    
-    @staticmethod
-    def load_from_json(path: str):
-        with open(path, "r") as json_file:
-            d = json.load(json_file)
-        story = Story()
-        story.board_url = d["board_url"]
-        story.board_html = BeautifulSoup(d["board_html"], "html.parser")
-        story.title = d["title"]
-        story.threads = [Thread.load_from_json(thread) for thread in d["threads"]]
-        story.characters = d["characters"]
-        story.authors = d["authors"]
-        return story
-    
-

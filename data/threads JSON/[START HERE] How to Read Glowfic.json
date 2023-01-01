@@ -1,0 +1,270 @@
+{
+    "title": "[START HERE] How to Read Glowfic",
+    "authors": [
+        "Swimmer963",
+        "Iarwain"
+    ],
+    "characters": [
+        "Character 2",
+        "Character 1",
+        "Merrin",
+        "Derrina",
+        "Ione Sala",
+        null
+    ],
+    "url": "https://glowfic.com/posts/6322?view=flat",
+    "blocks": [
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/posts/6322",
+            "content": "<div class=\"post-content\"><p>\u00a0</p>\n<p>\u00a0</p>\n<p>Hello, reader, and welcome to your first glowfic!\u00a0 If this is not your first glowfic, you already know how to move directly on to the main story from here, by clicking \"<a href=\"/posts/4582\">Next Post</a>\" above.\u00a0 You can also go there now if you'd rather just dive straight in, and work out the UI on your own.</p>\n<p>\u00a0</p>\n<p><strong>Glowfic</strong> is a special case of\u00a0<strong>roleplay fiction</strong>, in which the authors take turns describing events inside the story.</p>\n<p>This is the\u00a0<em>top post</em> or first <em>tag </em>of this <em>thread</em>.</p>\n<p>Immediately below it is the next of many other tags in the thread.\u00a0 When you're done reading this top post, just continue to the next tag!\u00a0 The tags below aren't reader comments, or anything different like that; they're just more of the same document.</p>\n<p>Keep reading downward, without clicking anything yet...</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865009#reply-1865009",
+            "content": "<div class=\"post-content\"><p>...onward to this next tag!</p>\n<p>At the top left of this tag (if you're reading this in the standard format) is a mysterious box saying \"Iarwain\".</p>\n<p>\"Iarwain\" is a pseudonym of Eliezer Yudkowsky.\u00a0 The \"Iarwain\" box means <em>Eliezer Yudkowsky wrote this tag.</em></p>\n<p>Below this is a <em>character viewpoint</em> tag, still written by Iarwain:</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Character 1",
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865011#reply-1865011",
+            "content": "<div class=\"post-content\"><p>\"Hi, my name is Character 1!\u00a0 Apparently.\"</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865014#reply-1865014",
+            "content": "<div class=\"post-content\"><p>In the tag above this one, we see a line of dialogue spoken by somebody named\u00a0<em>Character 1.</em>\u00a0 Character 1's viewpoint is being written by Eliezer Yudkowsky (\"Iarwain\").</p>\n<p>Glowfic (and roleplay-fic in general) is written as a succession of character viewpoints.\u00a0 Here, for example, is what it might look like for Character 1 to greet Character 2, both written by Eliezer/Iarwain:</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Character 1",
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865018#reply-1865018",
+            "content": "<div class=\"post-content\"><p>\"Hello, Character 2!\u00a0 I'm Character 1.\u00a0 How are you doing today?\"</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Character 2",
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865020#reply-1865020",
+            "content": "<div class=\"post-content\"><p>Character 2 stares back warily at Character 1.</p>\n<p>\"Fine, I suppose,\" they say, keeping their face very neutral.</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865021#reply-1865021",
+            "content": "<div class=\"post-content\"><p>In glowfic, many character viewpoints are accompanied by pictures of the character!\u00a0 Let's try that again.</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Character 1",
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F366%2Ficons%2Faeazdk0ral93eexib26l3l_rando.jpeg",
+            "url": "https://www.glowfic.com/replies/1865023#reply-1865023",
+            "content": "<div class=\"post-content\"><p>\"Hello, Character 2!\u00a0 I'm Character 1.\u00a0 How are you doing today?\"</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Character 2",
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F366%2Ficons%2Fddq6e7i11raqgquaxo5oij_hooded+figure.png",
+            "url": "https://www.glowfic.com/replies/1865024#reply-1865024",
+            "content": "<div class=\"post-content\"><p>Character 2 stares back warily at Character 1.</p>\n<p>\"Fine, I suppose,\" they say, keeping their face very neutral.</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865027#reply-1865027",
+            "content": "<div class=\"post-content\"><p>Often major characters in Glowfic have a tagline, something characteristic of themselves, usually but not always separated by dashes for historical reasons.\u00a0 Here, for example, is Ione Sala:</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Ione Sala",
+            "screenname": "know-it-all",
+            "author": "Iarwain",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F366%2Ficons%2Fgwmdc2vz9trvhstk63x6p_ione+1.jpeg",
+            "url": "https://www.glowfic.com/replies/1865028#reply-1865028",
+            "content": "<div class=\"post-content\"><p>\"Anything in particular I'm supposed to say here?\"</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865030#reply-1865030",
+            "content": "<div class=\"post-content\"><p>\"Nope,\" replies Fred Smith, a person for whom Iarwain hasn't bothered to create a distinct character!</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865033#reply-1865033",
+            "content": "<div class=\"post-content\"><p>\u00a0</p>\n<p>...anyway, that was Ione, whose characteristic tagline is apparently 'know-it-all'.</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865039#reply-1865039",
+            "content": "<div class=\"post-content\"><p>Some characters only have a single image.\u00a0\u00a0Other characters can make different facial expressions!</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Derrina",
+            "screenname": "walk-the-way",
+            "author": "Iarwain",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F366%2Ficons%2Fbrme7j29qbjesrntb7vi2_derrina+1.png",
+            "url": "https://www.glowfic.com/replies/1865040#reply-1865040",
+            "content": "<div class=\"post-content\"><p>\"I suppose I could, if I put forth an effort.\u00a0 Let me try...\"</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Derrina",
+            "screenname": "walk-the-way",
+            "author": "Iarwain",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F366%2Ficons%2F4rgerz1sr52bftj3bfbkjp_derrina+side.png",
+            "url": "https://www.glowfic.com/replies/1865041#reply-1865041",
+            "content": "<div class=\"post-content\"><p></p></div>",
+            "voices": []
+        },
+        {
+            "character": "Derrina",
+            "screenname": "walk-the-way",
+            "author": "Iarwain",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F366%2Ficons%2Fpd7dt41o60c5rp3q5hf8sd_derrina+5.png",
+            "url": "https://www.glowfic.com/replies/1865042#reply-1865042",
+            "content": "<div class=\"post-content\"><p></p></div>",
+            "voices": []
+        },
+        {
+            "character": "Derrina",
+            "screenname": "walk-the-way",
+            "author": "Iarwain",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F366%2Ficons%2Fpd7dt41o60c5rp3q5hf8sd_derrina+7.png",
+            "url": "https://www.glowfic.com/replies/1865043#reply-1865043",
+            "content": "<div class=\"post-content\"><p>\"How was that?\u00a0 I was trying to smile, there.\u00a0 Would you say it qualified as a proper facial expression?\"</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Ione Sala",
+            "screenname": "know-it-all",
+            "author": "Iarwain",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F366%2Ficons%2Fgwmdc2vz9trvhstk63x6p_ione+1.jpeg",
+            "url": "https://www.glowfic.com/replies/1865044#reply-1865044",
+            "content": "<div class=\"post-content\"><p>\"Youuuuu might need more practice there.\"</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Derrina",
+            "screenname": "walk-the-way",
+            "author": "Iarwain",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F366%2Ficons%2Fpd7dt41o60c5rp3q5hf8sd_derrina+2.png",
+            "url": "https://www.glowfic.com/replies/1865046#reply-1865046",
+            "content": "<div class=\"post-content\"><p>\"I shall practice, then.\"</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865054#reply-1865054",
+            "content": "<div class=\"post-content\"><p>If you're reading this story using the default layout on Glowfic.com, the bottom right of Derrina's tag just above will have a timestamp saying \"Posted Sep 28...\"\u00a0 Ione's tag, above that, will have an \"Updated Sep 28...\" subsection and a \"See History\" link because of how Iarwain (Yudkowsky) fiddled around to get the tag right.</p>\n<p>If you're reading through ProjectLawful.com, the default Style selector (at the top of the page) is set to \"Simplified\" which omits timestamps.\u00a0 Changing the Style to \"Classic\" will restore the standard Glowfic.com format.</p>\n<p>If you're reading through Glowfic.com, the only way to turn off timestamps is to install a <a href=\"https://chrome.google.com/webstore/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld\" rel=\"noopener\" target=\"_blank\">user CSS browser extension</a>, and add eg...</p>\n<blockquote>\n<p>.post-footer { opacity: 0.05; }</p>\n</blockquote>\n<p>...for Glowfic.com.</p>\n<p>I (Yudkowsky) personally recommend against timestamps, which is why they're off by default for ProjectLawful.com.</p></div>",
+            "voices": []
+        },
+        {
+            "character": "Merrin",
+            "screenname": "the-careful-textbooks",
+            "author": "Swimmer963",
+            "icon_url": "https://d1anwqy6ci9o1i.cloudfront.net/users%2F265%2Ficons%2F87hefj7dr6hpv57sb6jqpq_merrin21.jpeg",
+            "url": "https://www.glowfic.com/replies/1865220#reply-1865220",
+            "content": "<div class=\"post-content\"><p>\"Hi!\"\u00a0</p>\n<p>(Some characters have a\u00a0<em>wide range\u00a0</em>of facial expressions! This is Merrin having a good day and excited to meet you!)\u00a0</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865265#reply-1865265",
+            "content": "<div class=\"post-content\"><p>That tag was from \"Swimmer963\", glowfic pen name of Miranda Dixon-Luinenburg, as you can see from the different author name circled in red, here.</p>\n<p><img alt=\"\" height=\"143\" src=\"https://i.imgur.com/MOY5YOP.png\" width=\"364\"/></p>\n<p>So long as we're showing screenshots anyways:</p>\n<p>The link button circled in blue, there, is the <em>permalink</em> - clicking on it, or copying the URL from it, will produce a link that directs anyone to that particular tags.\u00a0 (And will go on doing so in the face of deleted earlier tags that change pagination, and so on.)</p>\n<p>The eye button circled in green sets your\u00a0<em>current reading point</em> within the post to that tag - if logged in to glowfic.com or projectlawful.com.\u00a0 If you accidentally clicked ahead in the story, you can click on the eye to set your current place back again.<br/><br/></p>\n<p>Clicking on the name Merrin, as shown by the purple arrow, will take you to Merrin's character page.\u00a0 There you could learn that Merrin's\u00a0<em>template</em> is \"Marian\", her <em>setting</em> is \"dath ilan\", and her <em>facecast</em> is \"Cailee Spaeny\".\u00a0 This would be more important information if you were trying to read or write a more complicated glowfic than Project Lawful, in which it might matter that different characters were <em>alts</em> of the same\u00a0<em>template</em> but from different\u00a0<em>settings.</em></p>\n<p>If you're just reading Project Lawful, you can probably ignore all that.</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865271#reply-1865271",
+            "content": "<div class=\"post-content\"><p>If you want to search inside a thread, you can do so by clicking the burger by the post title at the top of the page, which will produce a dropdown where \"Search Post\" is one of the options.</p>\n<p><img alt=\"\" height=\"214\" src=\"https://i.imgur.com/XqU5pD8.png\" width=\"421\"/></p>\n<p>In the same menu, \"View Flat HTML\" will produce a single, long file that contains all the tags in the entire current thread, without pagination.</p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865279#reply-1865279",
+            "content": "<div class=\"post-content\"><p>Speaking of which, we're approaching the end of the current\u00a0<em>page,</em> which is not the same as the end of the current\u00a0<em>thread!</em>\u00a0 At least, we're approaching the end of the current page if \"posts per page\" is set to the default value of 25.</p>\n<p><img alt=\"\" height=\"61\" src=\"https://i.imgur.com/ryTb3fP.png\" width=\"453\"/></p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865280#reply-1865280",
+            "content": "<div class=\"post-content\"><p>To go on to the next\u00a0<em>page</em> of the current\u00a0<em>thread,</em> click \"Next\" or \"2\" right below this tag.</p>\n<p><img alt=\"\" border=\"2\" height=\"124\" src=\"https://i.imgur.com/AqsU3KL.png\" width=\"454\"/></p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865285#reply-1865285",
+            "content": "<div class=\"post-content\"><p>And if you'd like to do less clicking like that in the future, you can set Posts Per Page to 50 or 100.\u00a0 At present, you'll unfortunately have to do this once per thread, any time you click in.</p>\n<p><img alt=\"\" height=\"134\" src=\"https://i.imgur.com/fLh7glk.png\" width=\"455\"/></p></div>",
+            "voices": []
+        },
+        {
+            "character": null,
+            "screenname": null,
+            "author": "Iarwain",
+            "icon_url": null,
+            "url": "https://www.glowfic.com/replies/1865293#reply-1865293",
+            "content": "<div class=\"post-content\"><p>And that's a wrap!\u00a0 If you're here to read Project Lawful, clicking \"Next Post\" below where it says \"Here Ends This Thread\" will take you to the first real thread of Project Lawful, \"mad investor chaos and the woman of asmodeus\", cowritten by Iarwain and Lintamande.</p>\n<p><img alt=\"\" height=\"409\" src=\"https://i.imgur.com/mYYsf3j.png\" width=\"461\"/></p></div>",
+            "voices": []
+        }
+    ]
+}

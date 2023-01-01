@@ -53,7 +53,6 @@ class Voice:
     def extract_voices(self):# -> List[List[str, List[str]]]:
         voices = []
         tags_stack = []
-        print("\n"*10)
         for i in range(len(self.tags)):
             tag = self.tags[i]
             if tag[0] == '/':
@@ -80,9 +79,31 @@ content = """<div class="post-content"><p>And then types and retypes, more brief
 <p>- I'm sorta broken, yeah.&nbsp; Everyone else in Golarion is completely bugshit wacko, though.</p>
 <p>- Tropian probability distortions: <em>clearly </em>a thing, even allowing for some of our history to have been produced by divine interventions imitating tropes.&nbsp; If we don't do this now, Pharasma's Creation might be waiting a long long time on the next story-empowered people who would have a probabilistically anomalous chance at fixing or even <em>changing</em> things.</p></div>"""
 
-voice = Voice().extract(character, content)
+print("\n"*10)
+process_voice_content(content)
+
+# voice = Voice().extract(character, content)
 
 # print(voice.content)
 
 # for v in voice.voices:
 #     print(v)
+
+
+
+
+
+
+content = """<div class="post-content"><p></p>
+<p></p>
+<p><span style="text-decoration: underline;"></span></p>
+<p></p>
+<p></p>
+<p></p>
+<p><em></em><em></em><em></em></p>
+<p></p>
+<p></p>
+<p>""</p>
+<p></p>
+<p></p>
+<p><em></em><em></em></p></div>"""
