@@ -12,6 +12,8 @@ It contains a character string, an screenname string, an author string, an icon 
 #TODO
 - Blocks should contain a list 'voices' of voice-text tuples, describing what voice should say what and in what order. (in progress)
 
+- MAIN PRIORITY: GET ACCESS TO PLAY.HT, OR ANY OTHER TTS THAT IS OF HIGH-ENOUGH QUALITY.
+
 - Write code to make easier the process of generating an audio episode from the story. This may include:
     1. automatically separating threads in 30-minutes-length list of blocks.
     2. function to generate audiobook from list of blocks (including intro and outro).
