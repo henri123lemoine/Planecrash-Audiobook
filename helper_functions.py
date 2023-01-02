@@ -2,9 +2,16 @@ import re
 
 #  This file contains helper functions to make the code more readable and easier to maintain.
 
-def process_voice_content(content):
+def process_voice_content(content: str) -> list:
     # Remove div tags
     content = content[26:-6]
+    
+    # Replace newlines and <br/> tags with <silence></silence>
+    content = content.replace('\n', '<br/>').replace('<br/>', '<silence></silence>')
+    # Replace parentheses with <parenthesis></parenthesis>
+    content = content.replace('(', '<parenthesis>').replace(')', '</parenthesis>')
+    # Replace hr tags with <hr></hr>
+    content = content.replace('<hr/>', '<hr></hr>')
 
     tags = []
     tag_indices = []
@@ -12,6 +19,8 @@ def process_voice_content(content):
         tag_indices.append((tag.start(), tag.end()))
         tags.append(tag.group()[1:-1])
     
+    print(tags)
+
     tmp = []
     for tag in tags:
         tmp.append(tag.split()[0])
@@ -38,6 +47,7 @@ def process_voice_content(content):
         voices.append([text_portions[i], tags_stack.copy()])
 
     voices = [voice for voice in voices if voice != ['', []]]
+    print("\n".join([f"\"{voice[0]}\" {voice[1]}" for voice in voices]))
     return voices
 
 

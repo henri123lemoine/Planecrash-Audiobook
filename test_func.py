@@ -2,13 +2,12 @@ from bs4 import BeautifulSoup
 import re
 from typing import Tuple, List
 from settings import VOICE_DICT
-from Story.helper_functions import process_voice_content
+from helper_functions import process_voice_content
 
 class Voice:
     def __init__(self) -> None:
         self.voice_name = ""
         self.content = ""
-        self.len_content = 0
         self.tags, self.text_portions = [], []
         self.voices = []
     
@@ -20,7 +19,6 @@ class Voice:
     def extract(self, character: str, content: str) -> "Voice":
         self.voice_name = VOICE_DICT.get(character)
         self.content = process_voice_content(content)
-        self.len_content = len(self.content)
         self.tags, self.text_portions = self.extract_tags_and_text()
         self.voices = self.extract_voices()
         return self
