@@ -62,10 +62,6 @@ make MANUAL_ACTION_REQUIRED True
 
 import re
 
-# The regex pattern to match quotes that aren't between < and >
-pattern = r'(?<!<)"(?![^<]*>)' + '|' + r'<[^<>]+>' + '|' + r'[()\n]' 
-
-# The input string
 content = """<div class="post-content"><p>And then types and retypes, more briefly, because wow is this taking some time:</p>
 <p>&nbsp;</p>
 <p><span style="text-decoration: underline;">My beliefs about the probable loci of my disagreements with Carissa Sevar, more located and pointed at than argued:</span></p>
@@ -84,11 +80,14 @@ if '<img' in content or '<span' in content or '<blockquote' in content or '<abbr
 # <dir>
 content = content[26:-6]
 
-# <a> (whatever tag between <a and >)
-content = re.sub(r'<a[^>]*>', '', content)
+# <a[...]>text</a> -> <a>text</a>
+content = re.sub(r'<a [^>]*>', '<a>', content)
 
-# <img>; MANUAL_ACTION_REQUIRED must be set to True
+# <img>
 content = re.sub(r'<img[^>]*>', '[IMAGE]', content)
+
+# <span[...]>text</span> -> <span>text</span>
+content = re.sub(r'<span[^>]*>', '<span>', content)
 
 # <br/>
 content = re.sub(r'<br/>', '<shh></shh>', content)
@@ -101,56 +100,66 @@ content = re.sub(r'<br/>', '<shh></shh>', content)
 # <big>
 # <small>
 # <hr>
+# <p>
 # <p dir="ltr" style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><p>
 # <details>
 
 # "" (whatever " symbol not between < and >)
-
-
-
-
-tags = []
-tag_indices = []
-mult_2_quote = True
+left_quote = True
 i = 0
-for tag_pattern in re.finditer(pattern, content):
-    tag = tag_pattern.group()
+while i < len(content):
+    if content[i] == '"':
+        content = f"{content[:i]}<{'/'*(left_quote:=not left_quote)}quote>{content[i+1:]}"
+        i += 8 - left_quote
+    i += 1
 
-    start = tag_pattern.start() + i
-    end = tag_pattern.end() + i
+# ( )
+content = content.replace('(', '<par>').replace(')', '</par>')
 
-    if tag == '"':
-        tag = f'<{"/"*(mult_2_quote:=1-mult_2_quote)}quote>'
-        content = f"{content[:start]}{tag}{content[end:]}"
-        end = start + len(tag)
-    elif tag == '(':
-        tag = '<par>'
-        content = f"{content[:start]}{tag}{content[end:]}"
-        end = start + len(tag)
-    elif tag == ')':
-        tag = '</par>'
-        content = f"{content[:start]}{tag}{content[end:]}"
-        end = start + len(tag)
-    elif tag == '<br/>':
-        tag = '<shh></shh>'
-        content = f"{content[:start]}{tag}{content[end:]}"
-        end = start + len(tag)
-    elif tag == '\n':
-        tag = '<shh></shh>'
-        content = f"{content[:start]}{tag}{content[end:]}"
-        end = start + len(tag)
-    elif tag[:3] == '<a ':
-        tag = '<a>'
-        content = f"{content[:start]}{tag}{content[end:]}"
-        end = start + len(tag)
+print(content)
+
+# tags = []
+# tag_indices = []
+# mult_2_quote = True
+# i = 0
+# for tag_pattern in re.finditer(pattern, content):
+#     tag = tag_pattern.group()
+
+#     start = tag_pattern.start() + i
+#     end = tag_pattern.end() + i
+
+#     if tag == '"':
+#         tag = f'<{"/"*(mult_2_quote:=1-mult_2_quote)}quote>'
+#         content = f"{content[:start]}{tag}{content[end:]}"
+#         end = start + len(tag)
+#     elif tag == '(':
+#         tag = '<par>'
+#         content = f"{content[:start]}{tag}{content[end:]}"
+#         end = start + len(tag)
+#     elif tag == ')':
+#         tag = '</par>'
+#         content = f"{content[:start]}{tag}{content[end:]}"
+#         end = start + len(tag)
+#     elif tag == '<br/>':
+#         tag = '<shh></shh>'
+#         content = f"{content[:start]}{tag}{content[end:]}"
+#         end = start + len(tag)
+#     elif tag == '\n':
+#         tag = '<shh></shh>'
+#         content = f"{content[:start]}{tag}{content[end:]}"
+#         end = start + len(tag)
+#     elif tag[:3] == '<a ':
+#         tag = '<a>'
+#         content = f"{content[:start]}{tag}{content[end:]}"
+#         end = start + len(tag)
     
-    i += len(tag) - len(tag_pattern.group())
+#     i += len(tag) - len(tag_pattern.group())
     
-    print(f"{tag} ({start}, {end})")
+#     print(f"{tag} ({start}, {end})")
     
-    tags.append(tag)
-    tag_indices.append((start, end))
+#     tags.append(tag)
+#     tag_indices.append((start, end))
 
-    i += len(tag) - len(tag_pattern.group())
+#     i += len(tag) - len(tag_pattern.group())
 
-print(tags)
+# print(tags)
