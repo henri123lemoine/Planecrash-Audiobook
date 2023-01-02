@@ -1,19 +1,27 @@
 
 from settings import BOARD_URL, JSON_PATH, VOICE_DICT
-from functions import Story, Voice
+from Story.get_thread import Thread
+from Story.get_board import Board
 
-story = Story().extract(BOARD_URL)
+# Get one thread
+thread_title = "what the truth can destroy"
 
-get = True
-load = False
-save = True
+thread = Thread.load_from_json(f"{JSON_PATH}/{thread_title}.json")
 
-if get:
-    story = Story().extract(BOARD_URL)
-if load:
-    story = Story.load_from_json(JSON_PATH)
-if save:
-    story.save_json(JSON_PATH)
+
+
+
+# get = False
+# load = True
+# save = False
+
+# if get:
+#     story = Story().extract(BOARD_URL)
+# if load:
+#     story = Story.load_from_json(JSON_PATH)
+# if save:
+#     story.save_json(JSON_PATH)
+
 
 
 # from helper_functions import*

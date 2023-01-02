@@ -6,7 +6,7 @@ import os
 from typing import List, Tuple, Dict, Union, Optional
 
 from settings import BOARD_URL, VOICE_DICT
-from helper_functions import make_title, process_voice_content
+from Story.helper_functions import make_title, process_voice_content
 
 """
 The format of the Glowfic board is as follows:
@@ -151,7 +151,7 @@ class Block:
         self.icon_url = icon.find("img")["src"] if (icon:=html.find("div", {"class": "post-icon"})) else None
         self.url = 'https://www.glowfic.com' + html.find("a", {"rel": "alternate"})["href"]
         html.find("a", {"rel": "alternate"})["href"]
-        self.content = str(content) if (content:=html.find("div", {"class": "post-content"})) else None
+        self.content = str(content) if (content:=html.find("div", {"class": "post-content"})) else ""
         self.voices = []
         return self
 
@@ -178,6 +178,9 @@ class Block:
         block.voices = [(voice[0], voice[1]) for voice in d["voices"]]
         return block
     
+
+
+
 
 class Thread:
     def __init__(self):
@@ -219,7 +222,9 @@ class Thread:
 
 
     @staticmethod
-    def load_from_json(d: dict) -> "Thread":
+    def load_from_json(path: str) -> "Thread":
+        with open(path, "r") as json_file:
+            d = json.load(json_file)
         thread = Thread()
         thread.title = d["title"]
         thread.authors = d["authors"]
@@ -277,12 +282,8 @@ class Story:
     def load_from_json(path: str):
         with open(f"{path}/story.json", "r") as json_file:
             story_d = json.load(json_file)
-        thread_ds = []
-        for file in os.listdir(path):
-            if file.endswith(".json") and file != "story.json":
-                with open(f"{path}/{file}", "r") as json_file:
-                    thread_ds.append(json.load(json_file))
-        
+        thread_ds = [f"{path}/{thread}" for thread in os.listdir(path) if thread != "story.json"]
+
         story = Story()
         story.url = story_d["url"]
         story.title = story_d["title"]
