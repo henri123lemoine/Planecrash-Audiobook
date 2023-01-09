@@ -7,13 +7,12 @@ from Story.get_board import Board
 
 
 def main():
-    # board = Board().extract(BOARD_URL)
-    # board.save_json(JSON_PATH)
+    board = Board().extract(BOARD_URL)
+    board.save_json(JSON_PATH)
 
     board = Board.load_from_json(JSON_PATH)
 
-    # blocks = story.get_all_blocks()
-    pass
+    blocks = board.get_all_blocks()
 
 if __name__ == "__main__":
     main()
