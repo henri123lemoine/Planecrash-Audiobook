@@ -10,6 +10,7 @@ _build
 #remove config keys from git
 src/config.py
 config.py
+src/Test/config.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
