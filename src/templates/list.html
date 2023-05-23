@@ -1,0 +1,12 @@
+<!-- list.html -->
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>JSON Files</h2>
+    <ul>
+    {% for file in files %}
+        <li><a href="{{ url_for('view_file', filename=file) }}">{{ file }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

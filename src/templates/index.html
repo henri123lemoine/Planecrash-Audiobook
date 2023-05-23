@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Posts</title>
+    <style>
+        .block {
+            border: 1px solid black;
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% for item in data %}
+        <div class="block">
+            <h2>{{ item.character }} - {{ item.author }}</h2>
+            <p>{{ item.content }}</p>
+            {% if 'voices' in item %}
+                {% for voice in item.voices %}
+                    <button onclick="playAudio('{{ voice.audio }}')">Play {{ voice.name }}'s line</button>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <script>
+        function playAudio(url) {
+            new Audio(url).play();
+        }
+    </script>
+</body>
+</html>
