@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, json
 import json
 
 app = Flask(__name__)
@@ -10,8 +10,9 @@ json_directory = 'C:\\Users\\Henri\\Documents\\GitHub\\Project-Lawful-Audiobook\
 @app.route('/')
 def index():
     # get a list of all JSON files in the directory
-    json_files = [f for f in os.listdir(json_directory) if f.endswith('.json')]
-    
+    # json_files = [f for f in os.listdir(json_directory) if f.endswith('.json')]
+    json_files = sorted([f for f in os.listdir(json_directory) if f.endswith('.json')], key=lambda x: int(x.split('_')[2]))
+
     # return a template that displays the list of files
     return render_template('list.html', files=json_files)
 

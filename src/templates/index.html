@@ -14,17 +14,62 @@
     {% for item in data %}
         <div class="block">
             <h2>{{ item.character }} - {{ item.author }}</h2>
-            <p>{{ item.content }}</p>
+            <p>{{ item.content | safe }}</p>
+
+            <script>
+                for (let voice of {{ item.voices | tojson | safe }}) {
+                    console.log(voice.audio);
+                }
+                // console.log('{{ item.voices | tojson | safe }}');
+            </script>
+
             {% if 'voices' in item %}
-                {% for voice in item.voices %}
-                    <button onclick="playAudio('{{ voice.audio }}')">Play {{ voice.name }}'s line</button>
-                {% endfor %}
+                <button onclick="playAudios({{ item.voices | tojson | safe }})">Play All Lines</button>
+
+                <details>
+                    <summary>Individual Voices</summary>
+                    {% for voice in item.voices %}
+                        <button onclick="playAudio('{{ voice.audio }}')">Play {{ voice.name }}'s line</button>
+                    {% endfor %}
+                </details>
             {% endif %}
         </div>
     {% endfor %}
     <script>
-        function playAudio(url) {
+        async function playAudio(url) {
+            console.log(url);
+            return new Promise(resolve => {
+                let audio = new Audio(url);
+                audio.onended = resolve;
+                audio.play();
+            });
+        }
+
+        async function playAllVoices(voices) {
+            console.log(voices);
+            for (let voice of voices) {
+                await playAudio(voice.audio);
+            }
+        }
+
+        function playSelectedVoice() {
+            let select = document.getElementById("voiceSelect");
+            let url = select.value;
             new Audio(url).play();
+        }
+
+        function playAudios(voices) {
+            console.log(voices);
+            var i = 0;
+            var audio = new Audio(voices[i].audio);
+            audio.play();
+            audio.addEventListener('ended', function () {
+                i++;
+                if (i < voices.length){
+                    audio = new Audio(voices[i].audio);
+                    audio.play();
+                }
+            });
         }
     </script>
 </body>
