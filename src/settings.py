@@ -3,6 +3,9 @@ BOARD_URL = "https://glowfic.com/board_sections/703"
 JSON_PATH = "data/threads JSON"
 BOARDS_PATH = "data/board_chunks"
 
+
+# VOICES
+
 narrator_voice = "fletcher"
 keltham_voice = "flynn"
 
